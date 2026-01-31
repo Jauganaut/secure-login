@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => {
       build: {
         outDir: 'dist',
         assetsDir: 'assets',
-        minify: 'terser',
+        // Use esbuild for minification in CI environments to avoid terser optional-dependency issues
+        minify: 'esbuild',
         sourcemap: false,
       },
       define: {
