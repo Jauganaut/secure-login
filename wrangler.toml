@@ -1,0 +1,25 @@
+name = "Mail Login"
+type = "javascript"
+main = "dist/index.js"
+compatibility_date = "2025-01-31"
+
+[env.production]
+name = "Mail Login-production"
+
+[build]
+command = "npm run build"
+cwd = "./"
+watch_paths = []
+
+[build.upload]
+format = "plain"
+
+[[build.upload.rules]]
+type = "CompiledContentType"
+globs = ["**/*.js"]
+fallthrough = true
+
+[[build.upload.rules]]
+type = "CompiledContentType"
+globs = ["**/*.css"]
+fallthrough = true
